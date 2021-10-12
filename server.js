@@ -47,4 +47,12 @@ app.put("/quotes/:id", function (request, response) {
   return response.send(quote)
 });
 
+//DELETE
+app.put("/quotes/:id", function (request, response) {
+  const id = parseInt(request.params.id);
+  const quote = quotes.findIndex(quote => quote.id == id);
+  quotes.splice(index, 1);
+  return response.send({id: id});
+});
+
 app.listen(3000, () => console.log("Listening on port 3000"));

@@ -48,7 +48,7 @@ app.put("/quotes/:id", function (request, response) {
 });
 
 //DELETE
-app.put("/quotes/:id", function (request, response) {
+app.delete("/quotes/:id", function (request, response) {
   const id = parseInt(request.params.id);
   const quote = quotes.findIndex(quote => quote.id == id);
   quotes.splice(index, 1);

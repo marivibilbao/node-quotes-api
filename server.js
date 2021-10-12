@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
 
+//Importante para que pueda aparecer el POST en Postman
+app.use(express.json());
+
 const quotes = require("./quotes.json");
 
 app.get('/', function(request, response) {
@@ -22,7 +25,7 @@ app.get("/quotes/:id", function(request, response) {
 });
 
 //POST
-app.post("quotes", function(request, response) {
+app.post("/quotes", function(request, response) {
   const quote = {
     author: request.body.author,
     quote: request.body.quote,
@@ -30,6 +33,18 @@ app.post("quotes", function(request, response) {
   };
   quotes.push(quote);
   return response.send(quote);
+});
+
+//PUT
+app.put("/quotes/:id", function (request, response) {
+  //1. Buscar en quotes una quote que tenga una id === request.params.id
+  //2. Modificar valores de author y quote
+  //3. Devolver el objeto modificado con author, quote, id
+  const id = parseInt(request.params.id);
+  const quote = quotes.find(quote => quote.id == id);
+  quote.author = request.body.author;
+  quote.quote = request.body.quote;
+  return response.send(quote)
 });
 
 app.listen(3000, () => console.log("Listening on port 3000"));
